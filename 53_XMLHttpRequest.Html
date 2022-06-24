@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApiCall</title>
+<style>
+    * { 
+        margin : 0;
+        padding: 0;
+        box-sizing : border-box;
+        font-family :'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif      }
+      body {
+        display : flex;
+        align-items : center;
+        justify-content : center;  
+        background-color: #43345d;
+        min-height : 800px;
+      }
+      
+      .container {
+        position : relative;
+        width : 1100px;
+        display : flex;
+        align-items : center;
+        justify-content : center;
+        flex-wrap: warp;
+        padding : 30px;  
+      }
+      
+      .container .card {
+        position: relative;
+        max-width : 300px;
+        height : 215px;  
+        background-color : #fff;
+        margin : 30px 10px;
+        padding : 20px 15px;
+        
+        display : flex;
+        flex-direction : column;
+        box-shadow : 0 5px 20px rgba(0,0,0,0.5);
+        transition : 0.3s ease-in-out;
+        border-radius : 15px;
+      }
+      .container .card:hover {
+        height : 300px;  
+       
+      }
+      
+      
+      .container .card .image {
+        position : relative;
+        width : 260px;
+        height : 240px;
+        border-radius: 30px;
+        top : -40%;
+        left: 8px;
+        box-shadow : 0 5px 20px rgba(0,0,0,0.2);
+        z-index : 1;
+      }
+      
+      .container .card .image img {
+        max-width : 100%;
+        border-radius : 15px;
+      }
+      
+      .container .card .content {
+        position : relative;
+        top : -140px;
+        padding : 10px 15px;
+        color : #111;
+        text-align : center;
+        
+        visibility : hidden;
+        opacity : 0;
+        transition : 0.3s ease-in-out;
+          
+      }
+      
+      .container .card:hover .content {
+         margin-top : 30px;
+         visibility : visible;
+         opacity : 1;
+         transition-delay: 0.1s;
+        
+      }
+      .container p{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 11px;
+        margin-top: 11px;
+      }
+      #Size
+      {
+        font-size: 12px;
+        font-weight:bolder
+      }
+</style>
+</head>
+<body>
+    <div id="container1">
+
+    </div> 
+</body>
+<script>
+    const container=document.querySelector('#container1');
+    const request=new XMLHttpRequest();
+    request.open('GET',"https://restcountries.com/v3.1/name/india?fullText=true");
+    request.send();
+
+    //to Get Response
+    request.addEventListener('load',function(){
+   // console.log( this.responseText);
+    const[data]=JSON.parse(this.responseText);
+   console.log(data);
+
+ const htmlData=`
+        <div class = container>
+          <div class = card>
+            <div class = image>
+              <img href = "#" src = "${data.flags.png}">
+            </div>
+            <div class = content>
+              <h1>${data.name.common}</h1>
+              <h3><p><em>Captial :</p>
+            
+                <p>${data.capital}</p>
+            </h3>
+              <p><em>Alternate Spelling : </em></p>
+              <p id="Size">${data.altSpellings}</p>
+            
+            </div>
+          </div>    
+        </div>
+      `;
+
+      container.insertAdjacentHTML("afterbegin",htmlData)
+    })
+</script>
+</html>
+
+
+
+
+
+
+<!-- 
+
+<body>
+    <div class = container>
+      <div class = card>
+        <div class = image>
+          <img href = "#" src =               https://i.pinimg.com/originals/a4/7b/a5/a47ba59b4a353e0928ef0551ca44f980.jpg>
+        </div>
+        <div class = content>
+          <h3>This is content</h3>
+          <p>DIn publishing and graphic design,           Lorem ipsum is a placeholder text               commonly used to demonstrate the visual         form of a document or a typeface without         relying on meaningful content.</p>
+        </div>
+      </div>    
+    </div>
+  </body> -->
